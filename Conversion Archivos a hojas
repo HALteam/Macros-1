@@ -1,6 +1,7 @@
     //Codigo para convertir archivos de excel en hojas
+    // Todo lo que se encuentre después del símbolo ' es un comentario en lenguaje VBA.
     
-    Dim xStrPath As String
+    Dim xStrPath As String         'Definicion de todas las variables
     Dim xStrPathOutput As String
     Dim xStrFName As String
     Dim xWS As Worksheet
