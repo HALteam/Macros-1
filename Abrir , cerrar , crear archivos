@@ -1,0 +1,28 @@
+    Aclaraciones - leer antes de copiar el codigo 
+    1. cualquier cosa despues de una comilla simple es un comentario , no hace parte del codigo , sirve para aclarar la funcionalidad del codigo
+      ejemplo : 'hola soy un comentario
+    2. Environ("UserProfile")  'identifica la ruta del usuario que esta usando el computador ----> "C:\Users\INURIBEL"
+    3.  los string se unen con el caracter ---> &  
+  ' **************************************************************ABRIR*******************************************************************************************
+    
+    Dim x As Workbook  'inicializa la variable X y le asigna un libro de excel
+    Dim Ruta As String  ' inicializas la variable RUTA  como un string
+    Ruta = Environ("USERPROFILE") & "\Desktop\Downloads\Tickets POS Mobile.xlsx"   'se pone la ruta del archivo que quieres abrir incluyendo el nombre del archivo
+            
+    'Abrimos el archivo
+    Set x = Workbooks.Open(Ruta) 'abre el archivo
+    
+    '************************************************************CERRAR*******************************************************************************************
+    ' CERRAR EL LIBRO QUE QUESTA ACTIVO EN EL MOMENTO
+    ActiveWorkbook.Close
+    
+    'SI ESTA EN OTRO WORKBOOK , PRIMERO CAMBIA DE WORKBOOK Y LUEGO LO CIERRA
+    x.Sheets("Tickets POS Mobile").Activate    'pone x que en este caso es el workbook luego en los parentesis pone el nombre de la hoja entre comillas.
+    ActiveWorkbook.Close              ' luego ya puede usar el close sin problema
+    
+    'SI NO DEFINIO UNA VARIABLE PARA EL WORKBOOK COMO ARRIBA EN LA SECCIÓN "ABRIR"
+    
+    Windows("Tickets POS Mobilee.xlsx").Activate   ' en el parentesis pone el nombre del archivo , que debe estar abierto previamente solo que no está activo
+    ActiveWorkbook.Close    ' luego puede usar el close sin problemas
+    
+    
