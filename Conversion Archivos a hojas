@@ -1,3 +1,5 @@
+    //Codigo para convertir archivos de excel en hojas
+    
     Dim xStrPath As String
     Dim xStrPathOutput As String
     Dim xStrFName As String
