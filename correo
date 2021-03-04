@@ -1,1 +1,58 @@
+// Macro que permite generar un correo en Outlook
+// LEER ANTES DE USAR EL CÓDIGO
+// Todo lo que se encuentre después del símbolo ' es un comentario en lenguaje VBA.
+// El siguiente código tiene como propósito generar un correo electrónico para su envío automático en la aplicación Outlook, con uno o varios destinatarios.
 
+
+Sub Correo()
+'
+' Correo Macro
+'
+Dim a As Worksheet, b As Worksheet
+Dim OApp As Object, OMail As Object, sbdy As String
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+On Error Resume Next
+ChDir (ActiveWorkbook.Path)
+Dest = "aflomboc@falabella.com.co" 'Declaración correo destinatario 1
+Dest1 = "Inuribel@falabella.com.co" 'Declaración correo destinatario 2
+Copia = "aflomboc@falabella.com.co" 'Declaración correo con copia a
+Asun = "Envío reporte del día: " & Range("S35").Value 'Declaración del asunto (En Range puede elegir el contenido de una celda que se encuentre fija) 
+myfile = ActiveWorkbook.Path & "\Imagen.JPEG"  'Declaración de variable de imagen (Si se desea agregar una imagen)
+
+Set OApp = CreateObject("Outlook.Application") 'Creación del objeto Outlook
+Set OMail = OApp.CreateItem(0) '
+
+sini = "<Div><H3><B>Buenas Tardes,</B></H3><br></Div>"
+sinii = "<Div><H4><B>Buenas tardes,</B></H4><br>A continuación, se presenta la participación de SCO, teniendo en cuenta que la meta por Centro de Cajas es de 35% y Total Piso de ventas de 15%.<br>En el archivo adjunto encuentran el detalle por tienda de:<br><br>   - Trx por día<br>   - Trx por hora<br>   - Trx por # Pos (SCO)<br>   - Ítem por boleta<br>   - Resumen por mes<br></Div>"
+stbl = "<Div> " & TableHTML & "  </Div>"
+stima = "<Div> <IMG SRC=""" & myfile & """><br><br></Div>"
+sfin = "<Div><H3><B>Cordialmente.</B></H3></Div>"
+
+sbdy = sini & vbNewLine & vbNewLine & vbNewLine & vbNewLine & vbNewLine
+sbdy = sinii & vbNewLine & vbNewLine & vbNewLine & vbNewLine & vbNewLine
+sbdy = sbdy & vbNewLine & stima & vbNewLine & vbNewLine
+sbdy = sbdy & sfin
+
+
+With OMail
+.To = Dest & ";" & Dest1
+.CC = Copia
+.BCC = ""
+.Subject = Asun
+.Attachments.Add (Ruta & "PARTICIPACION SCO Informe SEMANA " & Format(Now, "yyyymmdd") & ".xlsx") 'ActiveWorkbook.FullName
+.DeleteAfterSubmit = False
+.Display
+.HTMLBody = sbdy
+.Send
+End With
+Set OMail = Nothing
+Set OApp = Nothing
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+MsgBox ("El mensaje se envió con éxito"), vbInformation, "AVISO"
+x.Close SaveChanges:=False
+'
+End Sub
