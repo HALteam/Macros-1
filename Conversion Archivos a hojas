@@ -1,1 +1,22 @@
-
+    Dim xStrPath As String
+    Dim xStrPathOutput As String
+    Dim xStrFName As String
+    Dim xWS As Worksheet
+    Dim xMWS As Worksheet
+    Dim xTWB As Workbook
+    Dim xStrAWBName As String
+    
+    xStrPath = Application.ThisWorkbook.Path & "Nombre de la carpeta" 'Esta parte es en caso de que sean varios archivos que se requeran convertir
+    xStrPathOutput = Application.ThisWorkbook.Path
+    xStrFName = Dir(xStrPath & "*.xlsx")
+    
+    Workbooks.Open Filename:=xStrPath & xStrFName, ReadOnly:=True   'Aqui se abre el archivo
+    xStrAWBName = ActiveWorkbook.Name                               'Copia el nombre del archivo a la hoja    
+    For Each xWS In ActiveWorkbook.Sheets                           
+    xWS.Copy After:=xTWB.Sheets(xTWB.Sheets.Count)
+    Set xMWS = xTWB.Sheets(xTWB.Sheets.Count)
+    xMWS.Name = Left(xStrAWBName, Len(xStrAWBName) - 5)             'Realiza un conteo para la cantidad de archivos que son
+    Next xWS
+    Workbooks(xStrAWBName).Close                                    'Cierra todos los archivos
+    xStrFName = Dir()
+    
