@@ -22,37 +22,34 @@ Asun = "Envío reporte del día: " & Range("S35").Value 'Declaración del asunto
 myfile = ActiveWorkbook.Path & "\Imagen.JPEG"  'Declaración de variable de imagen (Si se desea agregar una imagen)
 
 Set OApp = CreateObject("Outlook.Application") 'Creación del objeto Outlook
-Set OMail = OApp.CreateItem(0) '
+Set OMail = OApp.CreateItem(0) 'Creación del Item de la App Hotmail
 
-sini = "<Div><H3><B>Buenas Tardes,</B></H3><br></Div>"
-sinii = "<Div><H4><B>Buenas tardes,</B></H4><br>A continuación, se presenta la participación de SCO, teniendo en cuenta que la meta por Centro de Cajas es de 35% y Total Piso de ventas de 15%.<br>En el archivo adjunto encuentran el detalle por tienda de:<br><br>   - Trx por día<br>   - Trx por hora<br>   - Trx por # Pos (SCO)<br>   - Ítem por boleta<br>   - Resumen por mes<br></Div>"
-stbl = "<Div> " & TableHTML & "  </Div>"
-stima = "<Div> <IMG SRC=""" & myfile & """><br><br></Div>"
+sini = "<Div><H3><B>Buenas Tardes,</B></H3><br></Div>" 'Creación por partes del cuerpo del proyecto.
+stima = "<Div> <IMG SRC=""" & myfile & """><br><br></Div>" 'Agregar la imagen al cuerpo del correo.
 sfin = "<Div><H3><B>Cordialmente.</B></H3></Div>"
 
-sbdy = sini & vbNewLine & vbNewLine & vbNewLine & vbNewLine & vbNewLine
+sbdy = sini & vbNewLine & vbNewLine & vbNewLine & vbNewLine & vbNewLine 'Construcción del cuerpo del correo a través de las variables anteriores
 sbdy = sinii & vbNewLine & vbNewLine & vbNewLine & vbNewLine & vbNewLine
 sbdy = sbdy & vbNewLine & stima & vbNewLine & vbNewLine
 sbdy = sbdy & sfin
 
 
-With OMail
-.To = Dest & ";" & Dest1
-.CC = Copia
+With OMail 'Declaración del objeto OMail
+.To = Dest & ";" & Dest1 '.To es el destinatario del correo electrónico
+.CC = Copia '.CC son los correos con copia a
 .BCC = ""
-.Subject = Asun
-.Attachments.Add (Ruta & "PARTICIPACION SCO Informe SEMANA " & Format(Now, "yyyymmdd") & ".xlsx") 'ActiveWorkbook.FullName
+.Subject = Asun '.Subject es el asunto del correo
+.Attachments.Add ActiveWorkbook.FullName '.Attachments.Add es el comando para adjuntar archivos, en este caso el libro actual.
 .DeleteAfterSubmit = False
-.Display
-.HTMLBody = sbdy
-.Send
+.Display 'Mostrar el correo electrónico
+.HTMLBody = sbdy 'Cuerpo del correo electrónico
+.Send '.Send es para enviar automáticamente, si se desea enviar manualmente no se debe incluir
 End With
 Set OMail = Nothing
 Set OApp = Nothing
 
 Application.ScreenUpdating = True
 Application.DisplayAlerts = True
-MsgBox ("El mensaje se envió con éxito"), vbInformation, "AVISO"
-x.Close SaveChanges:=False
+MsgBox ("El mensaje se envió con éxito"), vbInformation, "AVISO" 'Aviso para concluir el proceso con éxito
 '
 End Sub
