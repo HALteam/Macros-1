@@ -7,7 +7,7 @@
     
     Dim x As Workbook  'inicializa la variable X y le asigna un libro de excel
     Dim Ruta As String  ' inicializas la variable RUTA  como un string
-    Ruta = Environ("USERPROFILE") & "\Desktop\Downloads\Tickets POS Mobile.xlsx"   'se pone la ruta del archivo que quieres abrir incluyendo el nombre del archivo
+    Ruta = Environ("USERPROFILE") & "\Desktop\Downloads\nobrecompletodelarchivo.extension"   'se pone la ruta del archivo que quieres abrir incluyendo el nombre del archivo (ej: Tickets POS Mobilee.xlsx)
             
     'Abrimos el archivo
     Set x = Workbooks.Open(Ruta) 'abre el archivo
@@ -17,12 +17,31 @@
     ActiveWorkbook.Close
     
     'SI ESTA EN OTRO WORKBOOK , PRIMERO CAMBIA DE WORKBOOK Y LUEGO LO CIERRA
-    x.Sheets("Tickets POS Mobile").Activate    'pone x que en este caso es el workbook luego en los parentesis pone el nombre de la hoja entre comillas.
+    x.Sheets("nombre de la hoja").Activate    'pone x que en este caso es el workbook luego en los parentesis pone el nombre de la hoja entre comillas (ej: "Tickets POS Mobile").
     ActiveWorkbook.Close              ' luego ya puede usar el close sin problema
     
     'SI NO DEFINIO UNA VARIABLE PARA EL WORKBOOK COMO ARRIBA EN LA SECCIÓN "ABRIR"
     
-    Windows("Tickets POS Mobilee.xlsx").Activate   ' en el parentesis pone el nombre del archivo , que debe estar abierto previamente solo que no está activo
+    Windows("nombrearchivo.extension").Activate   ' en el parentesis pone el nombre del archivo (eje: Windows("Tickets POS Mobilee.xlsx").Activate) , que debe estar abierto previamente solo que no está activo
     ActiveWorkbook.Close    ' luego puede usar el close sin problemas
+    
+    '*************************************************************SELECCIONAR/ACTIVAR HOJAS O ARCHIVOS**************************************************************************************************
+    
+    ' Macros que se usan cuando tenemos varios archivos excel abiertos y debemos pasar de uno a otro, o tenemos un archivo con varias Hojas, los archivos deben estar abiertos previamente
+    
+    Windows("nombrearchivo.extension").Activate   'activa el archivo del cual especifiquemos el nombre
+    
+    Sheets("nombre de la hoja").Activate  'activa la hoja de la cual especifiquemos el nombre, hay que percatarse que previamente hallamos activado el archivo en el cual esté la hoja
+    
+    '***********************************************************AÑADIR ARCHIVOS U HOJAS********************************************
+    
+    Sheets.Add 'Añade una hoja nueva al archivo que está activo
+    ActiveSheet.Name= "nombre de la hoja" 'usar para cambiarle el nombre de lo contrario queda con un nombre generico como "hoja 1", el nombre va entre comillas
+    
+    Workbooks.Add 'crea un nuevo archivo excel
+    Activeworkbook.Name = "nombre del archivo"  ' cambiar el nombre del nuevo archivo, el nombre va entre comillas
+    
+    
+    
     
     
